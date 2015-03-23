@@ -1,0 +1,19 @@
+{
+  "name": "mcs-stellard",
+  "version": "0.0.1",
+  "description": "The mcs-stellard modules provides the communication layer with stellard and session containers.",
+  "keywords": ["stellar", "mcs"],
+  "scripts": {
+    "test": "gulp test"
+  },
+  "author": "Stellar Development Foundation <stellar@stellar.org>",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/stellar/mcs-stellard.git"
+  },
+  "dependencies": {
+    "mcs-core": "git+https://github.com/stellar/mcs-core.git#master",
+    "stellar-lib": "git+https://github.com/stellar/stellar-lib.git#master"
+  }
+}
