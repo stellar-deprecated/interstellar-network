@@ -56,3 +56,7 @@ live.listenForPayments();
 test.listenForPayments();
 
 ```
+
+### TODO
+
+- [ ] Encrypt wallet secret with user password before saving it in cookie.

@@ -7,13 +7,15 @@
     "test": "gulp test"
   },
   "author": "Stellar Development Foundation <stellar@stellar.org>",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "repository": {
     "type": "git",
     "url": "http://github.com/stellar/mcs-stellard.git"
   },
   "dependencies": {
+    "lodash": "^2.4.1",
     "mcs-core": "git+https://github.com/stellar/mcs-core.git#master",
-    "stellar-lib": "git+https://github.com/stellar/stellar-lib.git#master"
+    "stellar-lib": "git+https://github.com/stellar/stellar-lib.git#master",
+    "angular-cookies": "^1.3.15"
   }
 }

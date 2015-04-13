@@ -4,12 +4,16 @@ let { SessionAlreadyDefinedError } = require("../errors");
 let { SessionNotFoundError }       = require("../errors");
 let { Session }                    = require("../lib/session");
 
+import * as _ from 'lodash';
+
 const DEFAULT = 'default';
 
 class Sessions {
-  constructor(network) {
+  constructor(network, $cookieStore) {
     this.network = network;
+    this.$cookieStore = $cookieStore;
     this.sessions = {};
+    _.forEach(this.$cookieStore.get('sessions'), (params, name) => this.create(name, params));
   }
 
   get default() {
@@ -29,27 +33,24 @@ class Sessions {
       throw new SessionAlreadyDefinedError(`A session name "${name}" has already been created`);
     }
 
-    let {address, secret, connectionName} = params;
-
-    if(!connectionName) {
-      connectionName = "live";
+    if(!params.connectionName) {
+      params.connectionName = "live";
     }
 
-    let connection = this.network.get(connectionName);
+    params.connection = this.network.get(params.connectionName);
 
-    if (secret) {
-      let pair = new AddressSecretPair(secret);
+    if (params.secret) {
+      let pair = new AddressSecretPair(params.secret);
 
-      if (address && pair.address !== address) {
+      if (params.address && pair.address !== params.address) {
         throw new MismatchedAddressError();
       }
 
-      address = pair.address;
+      params.address = pair.address;
     }
 
-    let session = new Session(address, secret, connection);
-
-    this.sessions[name] = session;
+    this.sessions[name] = new Session(params);
+    this._updateSessionCookie();
   }
 
   get(name) {
@@ -64,12 +65,26 @@ class Sessions {
 
   destroy(name) {
     let session = this.sessions[name];
+    if (session) {
+      session.destroy();
+    }
     delete this.sessions[name];
-    if(session) { session.destroy(); }
+    this._updateSessionCookie();
+  }
+
+  _updateSessionCookie() {
+    let permanentSessions = {};
+    _.forEach(this.sessions, (session, name) => {
+      if (!session.isPermanent()) {
+        return;
+      }
+      permanentSessions[name] = _.pick(session, ['address', 'secret', 'connectionName', 'data', 'permanent']);
+    });
+    this.$cookieStore.put('sessions', permanentSessions);
   }
 }
 
-Sessions.$inject = ["mcs-stellard.Network"];
+Sessions.$inject = ["mcs-stellard.Network", "$cookieStore"];
 
 module.exports = function(mod) {
   mod.service("Sessions", Sessions);

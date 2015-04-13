@@ -2,10 +2,16 @@ let { AddressSecretPair }     = require("../lib/address-secret-pair");
 let { MismatchedSecretError } = require("../errors");
 
 export class Session {
-  constructor(address, secret, connection) {
-    this.address = address;
-    this.secret = secret;
+  constructor({address, secret, connection, data, permanent}) {
+    this.address    = address;
+    this.secret     = secret;
     this.connection = connection;
+    this.data       = data;
+    this.permanent  = permanent;
+  }
+
+  get connectionName() {
+    return this.connection.name;
   }
 
   withSecret(secret) {
@@ -15,7 +21,7 @@ export class Session {
       throw new MismatchedSecretError();
     }
 
-    return new Session(source.address, source.secret, this.connection);
+    return new Session(source.address, source.secret, this.connection, this.data);
   }
 
   sendRequest(...args) {
@@ -30,8 +36,17 @@ export class Session {
     return this.connection.ensureConnected().then(() => this);
   }
 
+  isPermanent() {
+    return this.permanent;
+  }
+
+  getData() {
+    return this.data;
+  }
+
   destroy() {
-    //TODO: any cleanup needed 
+    this.secret = null;
+    this.data = null;
   }
 
   //TODO: add helper methods here.  getBalance, etc.

@@ -3,6 +3,7 @@ import { Module, mod as mcsCore } from "mcs-core";
 export const mod = new Module('mcs-stellard');
 
 mod.use(mcsCore.name);
+mod.use(require('angular-cookies'));
 
 mod.services    = require.context("./services",     true);
 mod.setupBlocks = require.context("./setup-blocks", true);
