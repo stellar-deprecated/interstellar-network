@@ -1,0 +1,14 @@
+<div ng-controller="mcs-stellard.SendWidgetController as widget">
+    <h2>Send</h2>
+    <div>
+        Send to:
+        <input type="text" ng-model="widget.destination" />
+    </div>
+    <div>
+        Amount:
+        <input type="text" ng-model="widget.amount" /> XLM
+    </div>
+    <div>
+        <button ng-click="widget.send()">Send</button>
+    </div>
+</div>

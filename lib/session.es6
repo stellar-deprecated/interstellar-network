@@ -1,39 +1,40 @@
-let { AddressSecretPair }     = require("../lib/address-secret-pair");
-let { MismatchedSecretError } = require("../errors");
+import {Account, Server} from 'js-stellar-lib';
+import {MismatchedAddressError} from '../errors';
 
 export class Session {
-  constructor({address, secret, connection, data, permanent}) {
-    this.address    = address;
-    this.secret     = secret;
-    this.connection = connection;
+  constructor({address, secret, data, permanent}) {
+    this.account = Account.fromSeed(secret);
+    if (this.account.masterKeypair.address() !== address) {
+      // TODO uncomment
+      //throw new MismatchedAddressError();
+    }
+    let server = new Server({
+      hostname: 'horizon-testnet.stellar.org',
+      port: 443
+    });
+
+    server.loadAccount(this.account)
+      .then(() => console.log('Account loaded'));
+
     this.data       = data;
     this.permanent  = permanent;
   }
 
-  get connectionName() {
-    return this.connection.name;
+  get address() {
+    return this.account.masterKeypair.address();
   }
 
-  withSecret(secret) {
-    let source = new AddressSecretPair(secret);
-
-    if (source.address !== this.address) {
-      throw new MismatchedSecretError();
-    }
-
-    return new Session(source.address, source.secret, this.connection, this.data);
+  get secret() {
+    // TODO allow creating `protected` sessions - password is required to decrypt secret
+    return this.account.masterKeypair.seed();
   }
 
-  sendRequest(...args) {
-    return this.connection.sendRequest(...args);
+  getAccount() {
+    return this.account;
   }
 
-  sendTransaction(...args) {
-    return this.connection.sendTransaction(...args);
-  }
-
-  ensureConnected() {
-    return this.connection.ensureConnected().then(() => this);
+  getAddress() {
+    return this.address;
   }
 
   isPermanent() {
@@ -45,9 +46,7 @@ export class Session {
   }
 
   destroy() {
-    this.secret = null;
+    this.account = null;
     this.data = null;
   }
-
-  //TODO: add helper methods here.  getBalance, etc.
 }

@@ -1,0 +1,12 @@
+<div ng-controller="mcs-stellard.PreSendWidgetController as widget">
+    <h2>Send</h2>
+    <form ng-submit="widget.go()">
+        <div>
+            Send to:
+            <input type="text" placeholder="type a username or address to send" ng-model="widget.destination" />
+        </div>
+        <div ng-if="widget.destination">
+            <button type="submit">Go</button>
+        </div>
+    </form>
+</div>

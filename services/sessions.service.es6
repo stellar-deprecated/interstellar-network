@@ -1,16 +1,12 @@
-let { AddressSecretPair }          = require("../lib/address-secret-pair");
-let { Transaction }                = require("stellar-lib");
-let { SessionAlreadyDefinedError } = require("../errors");
-let { SessionNotFoundError }       = require("../errors");
-let { Session }                    = require("../lib/session");
-
+import {SessionAlreadyDefinedError} from "../errors";
+import {SessionNotFoundError} from "../errors";
+import {Session} from "../lib/session";
 import * as _ from 'lodash';
 
 const DEFAULT = 'default';
 
 class Sessions {
-  constructor(network, $cookieStore) {
-    this.network = network;
+  constructor($cookieStore) {
     this.$cookieStore = $cookieStore;
     this.sessions = {};
     _.forEach(this.$cookieStore.get('sessions'), (params, name) => this.create(name, params));
@@ -31,22 +27,6 @@ class Sessions {
   create(name, params={}) {
     if(this.sessions[name]) {
       throw new SessionAlreadyDefinedError(`A session name "${name}" has already been created`);
-    }
-
-    if(!params.connectionName) {
-      params.connectionName = "live";
-    }
-
-    params.connection = this.network.get(params.connectionName);
-
-    if (params.secret) {
-      let pair = new AddressSecretPair(params.secret);
-
-      if (params.address && pair.address !== params.address) {
-        throw new MismatchedAddressError();
-      }
-
-      params.address = pair.address;
     }
 
     this.sessions[name] = new Session(params);
@@ -78,13 +58,13 @@ class Sessions {
       if (!session.isPermanent()) {
         return;
       }
-      permanentSessions[name] = _.pick(session, ['address', 'secret', 'connectionName', 'data', 'permanent']);
+      permanentSessions[name] = _.pick(session, ['address', 'secret', 'data', 'permanent']);
     });
     this.$cookieStore.put('sessions', permanentSessions);
   }
 }
 
-Sessions.$inject = ["mcs-stellard.Network", "$cookieStore"];
+Sessions.$inject = ["$cookieStore"];
 
 module.exports = function(mod) {
   mod.service("Sessions", Sessions);
