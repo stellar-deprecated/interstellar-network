@@ -1,5 +1,8 @@
 <div ng-controller="mcs-stellard.BalanceWidgetController as widget">
     <h2>Balance</h2>
-    Your address: {{widget.address}}<br />
-    Your balance: {{widget.balance}}
+    <ul>
+        <li>{{widget.balance.xlm}} XLM</li>
+        <li>{{widget.balance.usd}} USD</li>
+        <li>{{widget.balance.eur}} EUR</li>
+    </ul>
 </div>

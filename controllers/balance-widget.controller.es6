@@ -1,3 +1,5 @@
+require('../styles/balance-widget.scss');
+
 export class BalanceWidgetController {
   constructor(sessions) {
     if (sessions.hasDefault()) {

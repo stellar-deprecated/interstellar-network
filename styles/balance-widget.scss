@@ -1,0 +1,15 @@
+@import "~kelp/lib/_index";
+
+mcs-stellard-balance {
+  @include K-flex-item();
+  display: block;
+  border: 1px solid black;
+}
+
+mcs-stellard-balance h2 {
+  font-size: 20px;
+}
+
+mcs-stellard-balance ul > li {
+  display: block;
+}
