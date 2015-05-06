@@ -1,3 +1,4 @@
+require('../styles/send-widget.scss');
 import {Account, Currency, Server, TransactionBuilder} from 'js-stellar-lib';
 
 export class SendWidgetController {
@@ -12,7 +13,8 @@ export class SendWidgetController {
 
   send() {
     let server = new Server({
-      hostname: 'https://horizon-testnet.stellar.org',
+      secure: true,
+      hostname: 'horizon-testnet.stellar.org',
       port: 443
     });
     let currency = Currency.native();
