@@ -1,0 +1,23 @@
+.mcs-stellard-history-historyEntry {
+  border-bottom: 1px solid $k-color-F;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: $k-spacing-formPadding $k-spacing-widgetPadding;
+}
+
+.mcs-stellard-history-historyEntry__location {
+  width: 50%;
+  text-align: left;
+}
+.mcs-stellard-history-historyEntry__amount {
+  width: 50%;
+  text-align: right;
+}
+.mcs-stellard-history-historyEntry__time {
+  color: $k-color-F;
+  font-size: 0.75em;
+}
+.mcs-stellard-history-historyEntry__issuer {
+  color: $k-color-F;
+  font-size: 0.75em;
+}

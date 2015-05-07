@@ -1,5 +1,7 @@
 import {Account} from 'js-stellar-lib';
 
+require('../styles/history-widget.scss');
+
 export class HistoryWidgetController {
   constructor(sessions) {
     if (sessions.hasDefault()) {

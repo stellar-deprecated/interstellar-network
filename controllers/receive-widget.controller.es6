@@ -1,3 +1,5 @@
+require('../styles/receive-widget.scss');
+
 export class ReceiveWidgetController {
   constructor(sessions) {
     if (sessions.hasDefault()) {
