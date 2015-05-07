@@ -1,10 +1,12 @@
 <div ng-controller="mcs-stellard.ReceiveWidgetController as widget">
-  <p class="mcs-stellard-receive-receiveInfo">
-    <span class="mcs-stellard-receive-receiveInfo__label">Your username</span>
-    <span class="mcs-stellard-receive-receiveInfo__data">foo@bar.baz</span>
-  </p>
-  <p class="mcs-stellard-receive-receiveInfo">
-    <span class="mcs-stellard-receive-receiveInfo__label">Your address</span>
-    <span class="mcs-stellard-receive-receiveInfo__data">{{widget.address}}</span>
-  </p>
+  <div class="mcs-stellard-receive-receiveContainer">
+    <p class="mcs-stellard-receive-receiveContainer__item mcs-stellard-receive-receiveInfo">
+      <span class="mcs-stellard-receive-receiveInfo__label">Your username</span>
+      <span class="mcs-stellard-receive-receiveInfo__data">foo@bar.baz</span>
+    </p>
+    <p class="mcs-stellard-receive-receiveContainer__item mcs-stellard-receive-receiveInfo">
+      <span class="mcs-stellard-receive-receiveInfo__label">Your address</span>
+      <span class="mcs-stellard-receive-receiveInfo__data">{{widget.address}}</span>
+    </p>
+  </div>
 </div>

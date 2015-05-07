@@ -1,5 +1,5 @@
 <div ng-controller="mcs-stellard.SendWidgetController as widget">
-  <form>
+  <form class="mcs-stellard-send-sendForm">
     <div class="k-inputGroup">
       <input class="k-inputGroup__item mcs-stellard-send-sendForm__sendTo" ng-model="widget.destinationAddress" placeholder="Send to" type="text">
     </div>
@@ -12,7 +12,7 @@
       </select>
     </div>
     <div class="k-inputGroup">
-      <button class="k-button" ng-click="widget.send()">Send</button>
+      <button class="k-button k-inputGroup__item--full" ng-click="widget.send()">Send</button>
     </div>
   </form>
 </div>

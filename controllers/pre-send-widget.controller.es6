@@ -1,3 +1,5 @@
+require('../styles/pre-send-widget.scss');
+
 export class PreSendWidgetController {
   constructor($state) {
     this.$state = $state;
