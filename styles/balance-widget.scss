@@ -1,13 +1,21 @@
-mcs-stellard-balance {
-  @include K-flex-item();
-  display: block;
-  border: 1px solid black;
-}
 
-mcs-stellard-balance h2 {
-  font-size: 20px;
+.mcs-stellard-balance-balanceEntry {
+  @include K-flex-row;
+  flex-wrap: wrap;
+  justify-content: center;
 }
-
-mcs-stellard-balance ul > li {
-  display: block;
+.mcs-stellard-balance-balanceEntry__amount {
+  flex: 12 0 100%;
+  text-align: center;
+  font-size: $k-scale-a;
+}
+.mcs-stellard-balance-balanceEntry__currency {
+  // margin: 0 1em;
+}
+.mcs-stellard-balance-balanceEntry__currency:after {
+  content: ' - ';
+  display: inline;
+}
+.mcs-stellard-balance-balanceEntry__issuer {
+  // margin: 0 1em;
 }

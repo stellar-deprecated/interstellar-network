@@ -1,5 +1,8 @@
-mcs-stellard-send {
-  @include K-flex-item();
-  display: block;
-  border: 1px solid black;
+.mcs-stellard-send-sendForm__sendTo {
+}
+// hmm dilemma .. these aren't direct descendants
+// since there is an inputGroup
+.mcs-stellard-send-sendForm__amount {
+}
+.mcs-stellard-send-sendForm__currency {
 }

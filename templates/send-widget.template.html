@@ -11,4 +11,22 @@
     <div>
         <button ng-click="widget.send()">Send</button>
     </div>
+
+  <hr>
+  <form class="k-form">
+    <div class="k-inputGroup">
+      <input class="k-inputGroup__item mcs-stellard-send-sendForm__sendTo" placeholder="Send to" type="text">
+    </div>
+    <div class="k-inputGroup">
+      <input class="k-inputGroup__item mcs-stellard-send-sendForm__amount" placeholder="Amount" type="text">
+      <select class="k-inputGroup__item k-inputGroup__item--addon mcs-stellard-send-sendForm__currency">
+        <option value="STR">STR</option>
+        <option value="USD">USD (bank.iris.li)</option>
+        <option value="EUR">EUR (rabelais.risa)</option>
+      </select>
+    </div>
+    <div class="k-inputGroup">
+      <button class="k-button" ng-click="widget.send()">Send</button>
+    </div>
+  </form>
 </div>

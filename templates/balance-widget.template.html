@@ -1,8 +1,20 @@
 <div ng-controller="mcs-stellard.BalanceWidgetController as widget">
-    <h2>Balance</h2>
-    <ul>
-        <li>{{widget.balance.xlm}} XLM</li>
-        <li>{{widget.balance.usd}} USD</li>
-        <li>{{widget.balance.eur}} EUR</li>
-    </ul>
+  <h2>Balance</h2>
+  <ul>
+    <li class="mcs-stellard-balance-balanceEntry">
+      <span class="mcs-stellard-balance-balanceEntry__amount">{{widget.balance.xlm}}0</span>
+      <span class="mcs-stellard-balance-balanceEntry__currency">XLM</span>
+      <span class="mcs-stellard-balance-balanceEntry__issuer"></span>
+    </li>
+    <li class="mcs-stellard-balance-balanceEntry">
+      <span class="mcs-stellard-balance-balanceEntry__amount">{{widget.balance.usd}}0</span>
+      <span class="mcs-stellard-balance-balanceEntry__currency">USD</span>
+      <span class="mcs-stellard-balance-balanceEntry__issuer">bankof.iris.li</span>
+    </li>
+    <li class="mcs-stellard-balance-balanceEntry">
+      <span class="mcs-stellard-balance-balanceEntry__amount">{{widget.balance.eur}}0</span>
+      <span class="mcs-stellard-balance-balanceEntry__currency">EUR</span>
+      <span class="mcs-stellard-balance-balanceEntry__issuer">rabelais.risa</span>
+    </li>
+  </ul>
 </div>
