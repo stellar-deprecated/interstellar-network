@@ -1,5 +1,6 @@
-import {Module} from "mcs-core";
+import {Module, Intent} from "mcs-core";
 import {mod as mcsStellarApi} from "mcs-stellar-api";
+import * as moduleDatastore from "./util/module-datastore.es6";
 
 export const mod = new Module('mcs-stellard');
 
@@ -11,6 +12,14 @@ mod.directives  = require.context("./directives", true);
 mod.services    = require.context("./services", true);
 mod.templates   = require.context("raw!./templates", true);
 mod.setupBlocks = require.context("./setup-blocks", true);
+
+let registerBroadcastReceivers = (IntentBroadcast) => {
+  IntentBroadcast.registerReceiver(Intent.TYPES.SEND_TRANSACTION, intent => {
+    moduleDatastore.set('destinationAddress', intent.data.destination);
+  });
+};
+registerBroadcastReceivers.$inject = ["mcs-core.IntentBroadcast"];
+mod.run(registerBroadcastReceivers);
 
 mod.define();
 

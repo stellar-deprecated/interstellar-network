@@ -5,11 +5,12 @@ export class BalanceWidgetController {
     if (sessions.hasDefault()) {
       let session = sessions.default;
       this.address = session.getAddress();
-      console.log(session.getAccount().balances);
+      this.balance = session.getAccount().balance;
+      //console.log(session.getAccount());
+      //console.log(this.balance);
     } else {
       this.address = 'no session';
     }
-    this.balance = 0;
   }
 }
 

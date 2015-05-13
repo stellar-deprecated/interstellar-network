@@ -3,30 +3,26 @@ import {MismatchedAddressError} from '../errors';
 
 export class Session {
   constructor({address, secret, data, permanent}) {
-    this.account = Account.fromSeed(secret);
-    if (this.account.masterKeypair.address() !== address) {
-      // TODO uncomment
-      //throw new MismatchedAddressError();
-    }
-    let server = new Server({
-      hostname: 'horizon-testnet.stellar.org',
-      port: 443
-    });
+    // Testing
+    //this.account = Account.fromSeed('sf6iYQoSZhKVcrZxRKVgH2qcsbNkjNnVwfEbKrLjZ5ifMigJZ7P');
 
-    server.loadAccount(this.account)
-      .then(() => console.log('Account loaded'));
-
+    this.address    = address;
+    this.secret     = secret;
     this.data       = data;
     this.permanent  = permanent;
   }
 
-  get address() {
-    return this.account.masterKeypair.address();
-  }
+  loadAccount() {
+    let server = new Server({
+      secure: true,
+      hostname: 'horizon-testnet.stellar.org',
+      port: 443
+    });
 
-  get secret() {
-    // TODO allow creating `protected` sessions - password is required to decrypt secret
-    return this.account.masterKeypair.seed();
+    return server.loadAccount('gsqzN96A8y3k4EkXrNiXp1ww7JuHFaX5w1t7SHsiqkW7ob6xGzD'/*this.address*/)
+      .then(account => {
+        this.account = account;
+      });
   }
 
   getAccount() {
@@ -35,6 +31,10 @@ export class Session {
 
   getAddress() {
     return this.address;
+  }
+
+  getSecret() {
+    return this.secret;
   }
 
   isPermanent() {

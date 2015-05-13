@@ -1,19 +1,24 @@
 require('../styles/pre-send-widget.scss');
 
-export class PreSendWidgetController {
-  constructor($state) {
-    this.$state = $state;
+import {Intent} from "mcs-core";
+
+class PreSendWidgetController {
+  constructor(IntentBroadcast) {
+    this.IntentBroadcast = IntentBroadcast;
   }
 
   go() {
-    this.$state.go('send', {
-      destination: this.destination
-    });
+    this.IntentBroadcast.sendBroadcast(
+      new Intent(
+        Intent.TYPES.SEND_TRANSACTION,
+        {destination: this.destination}
+      )
+    );
   }
 }
 
-PreSendWidgetController.$inject = ["$state"];
+PreSendWidgetController.$inject = ["mcs-core.IntentBroadcast"];
 
-module.exports = function(mod) {
+module.exports = mod => {
   mod.controller("PreSendWidgetController", PreSendWidgetController);
 };

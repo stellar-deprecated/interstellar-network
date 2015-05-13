@@ -17,7 +17,7 @@ class Sessions {
   }
 
   createDefault(params={}) {
-    this.create(DEFAULT, params);
+    return this.create(DEFAULT, params);
   }
 
   hasDefault() {
@@ -29,8 +29,12 @@ class Sessions {
       throw new SessionAlreadyDefinedError(`A session name "${name}" has already been created`);
     }
 
-    this.sessions[name] = new Session(params);
-    this._updateSessionCookie();
+    let session = new Session(params);
+    return session.loadAccount()
+      .then(() => {
+        this.sessions[name] = session;
+        this._updateSessionCookie();
+      });
   }
 
   get(name) {
