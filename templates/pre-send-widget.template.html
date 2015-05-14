@@ -1,7 +1,7 @@
 <div class="mcs-stellard-preSend" ng-controller="mcs-stellard.PreSendWidgetController as widget">
   <form ng-submit="widget.go()">
     <label class="k-inputGroup mcs-login-inputGroup">
-      <span class="k-inputGroup__item k-inputGroup__item--addon">Send to: </span>
+      <span class="k-inputGroup__item k-inputGroup__item--tag K-flexItem-none">Send to</span>
       <input class="k-inputGroup__item mcs-login-inputGroup__input" type="text" placeholder="type a username or address to send" ng-model="widget.destination" />
     </label>
     <div class="k-inputGroup" ng-if="widget.destination">
