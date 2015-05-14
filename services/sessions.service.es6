@@ -30,10 +30,11 @@ class Sessions {
       throw new SessionAlreadyDefinedError(`A session name "${name}" has already been created`);
     }
 
+    let session = new Session(params);
+    this.sessions[name] = session;
     return this.Server.loadAccount(params.address)
       .then(account => {
-        params.account = account;
-        this.sessions[name] = new Session(params);
+        session.setAccount(account);
         this._updateSessionCookie();
       });
   }

@@ -5,7 +5,7 @@ export class BalanceWidgetController {
     if (sessions.hasDefault()) {
       let session = sessions.default;
       this.address = session.getAddress();
-      this.balance = session.getAccount().balance;
+      //this.balance = session.getAccount().balance;
       //console.log(session.getAccount());
       //console.log(this.balance);
     } else {

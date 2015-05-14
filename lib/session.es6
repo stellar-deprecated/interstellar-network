@@ -15,6 +15,10 @@ export class Session {
     return this.account;
   }
 
+  setAccount(account) {
+    this.account = account;
+  }
+
   getUsername() {
     return this.username;
   }
