@@ -6,8 +6,9 @@ import * as _ from 'lodash';
 const DEFAULT = 'default';
 
 class Sessions {
-  constructor($cookieStore) {
+  constructor($cookieStore, Server) {
     this.$cookieStore = $cookieStore;
+    this.Server = Server;
     this.sessions = {};
     _.forEach(this.$cookieStore.get('sessions'), (params, name) => this.create(name, params));
   }
@@ -29,10 +30,10 @@ class Sessions {
       throw new SessionAlreadyDefinedError(`A session name "${name}" has already been created`);
     }
 
-    let session = new Session(params);
-    return session.loadAccount()
-      .then(() => {
-        this.sessions[name] = session;
+    return this.Server.loadAccount(params.address)
+      .then(account => {
+        params.account = account;
+        this.sessions[name] = new Session(params);
         this._updateSessionCookie();
       });
   }
@@ -56,19 +57,25 @@ class Sessions {
     this._updateSessionCookie();
   }
 
+  destroyAll() {
+    _.forEach(this.sessions, (session, name) => {
+      this.destroy(name);
+    });
+  }
+
   _updateSessionCookie() {
     let permanentSessions = {};
     _.forEach(this.sessions, (session, name) => {
       if (!session.isPermanent()) {
         return;
       }
-      permanentSessions[name] = _.pick(session, ['address', 'secret', 'data', 'permanent']);
+      permanentSessions[name] = _.pick(session, ['username', 'address', 'secret', 'data', 'permanent']);
     });
     this.$cookieStore.put('sessions', permanentSessions);
   }
 }
 
-Sessions.$inject = ["$cookieStore"];
+Sessions.$inject = ["$cookieStore", "mcs-stellard.Server"];
 
 module.exports = function(mod) {
   mod.service("Sessions", Sessions);

@@ -1,30 +1,22 @@
 require('../styles/send-widget.scss');
 
 import {Intent} from 'mcs-core';
-import {Account, Currency, Operation, Server, TransactionBuilder} from 'js-stellar-lib';
+import {Account, Currency, Operation, TransactionBuilder} from 'js-stellar-lib';
 import * as moduleDatastore from "../util/module-datastore.es6";
 
 class SendWidgetController {
-  constructor(sessions) {
-    if (!sessions.hasDefault()) {
+  constructor(Sessions, Server) {
+    if (!Sessions.hasDefault()) {
       console.error('No session');
       return;
     }
 
-    this.session = sessions.default;
+    this.Server = Server;
+    this.session = Sessions.default;
     this.destinationAddress = moduleDatastore.get('destinationAddress');
   }
 
-  static setDestinationAddress(destinationAddress) {
-    console.log(destinationAddress);
-  }
-
   send() {
-    let server = new Server({
-      secure: true,
-      hostname: 'horizon-testnet.stellar.org',
-      port: 443
-    });
     let currency = Currency.native();
 
     var transaction = new TransactionBuilder(this.session.getAccount())
@@ -35,7 +27,7 @@ class SendWidgetController {
       }))
       .build();
 
-    server.submitTransaction(transaction)
+    this.Server.submitTransaction(transaction)
       .then(transactionResult => {
         console.log(transactionResult);
         alert('Transaction sent!');
@@ -46,7 +38,7 @@ class SendWidgetController {
   }
 }
 
-SendWidgetController.$inject = ["mcs-stellard.Sessions"];
+SendWidgetController.$inject = ["mcs-stellard.Sessions", "mcs-stellard.Server"];
 
 module.exports = function(mod) {
   mod.controller("SendWidgetController", SendWidgetController);

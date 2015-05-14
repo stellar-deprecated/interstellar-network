@@ -2,12 +2,13 @@ require('../styles/receive-widget.scss');
 
 export class ReceiveWidgetController {
   constructor(sessions) {
-    if (sessions.hasDefault()) {
-      let session = sessions.default;
-      this.address = session.getAddress();
-    } else {
-      this.address = 'no session';
+    if (!sessions.hasDefault()) {
+      console.error('Active session is required by this widget.');
+      return;
     }
+    let session = sessions.default;
+    this.username = session.getUsername();
+    this.address = session.getAddress();
   }
 }
 

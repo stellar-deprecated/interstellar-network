@@ -13,12 +13,16 @@ mod.services    = require.context("./services", true);
 mod.templates   = require.context("raw!./templates", true);
 mod.setupBlocks = require.context("./setup-blocks", true);
 
-let registerBroadcastReceivers = (IntentBroadcast) => {
+let registerBroadcastReceivers = (IntentBroadcast, Sessions) => {
   IntentBroadcast.registerReceiver(Intent.TYPES.SEND_TRANSACTION, intent => {
     moduleDatastore.set('destinationAddress', intent.data.destination);
   });
+
+  IntentBroadcast.registerReceiver(Intent.TYPES.LOGOUT, intent => {
+    Sessions.destroyAll();
+  });
 };
-registerBroadcastReceivers.$inject = ["mcs-core.IntentBroadcast"];
+registerBroadcastReceivers.$inject = ["mcs-core.IntentBroadcast", "mcs-stellard.Sessions"];
 mod.run(registerBroadcastReceivers);
 
 mod.define();
