@@ -1,8 +1,9 @@
 .mcs-stellard-history-historyEntry {
-  border-bottom: 1px solid $k-color-F;
+  display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   padding: $k-spacing-formPadding $k-spacing-widgetPadding;
+  border-bottom: 1px solid $k-color-F;
 }
 
 .mcs-stellard-history-historyEntry__location {
