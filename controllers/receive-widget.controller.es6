@@ -1,18 +1,29 @@
 require('../styles/receive-widget.scss');
 
 export class ReceiveWidgetController {
-  constructor(sessions) {
-    if (!sessions.hasDefault()) {
+  constructor($scope, Sessions, Server) {
+    if (!Sessions.hasDefault()) {
       console.error('Active session is required by this widget.');
       return;
     }
-    let session = sessions.default;
-    this.username = session.getUsername();
-    this.address = session.getAddress();
+    this.$scope = $scope;
+    this.Server = Server;
+    this.session = Sessions.default;
+    this.username = this.session.getUsername();
+    this.address = this.session.getAddress();
+    this.friendbotSent = false;
+  }
+
+  friendbot() {
+    this.Server.friendbot(this.session.getAddress())
+      .then(() => {
+        this.friendbotSent = true;
+        this.$scope.$apply();
+      })
   }
 }
 
-ReceiveWidgetController.$inject = ["mcs-stellard.Sessions"];
+ReceiveWidgetController.$inject = ["$scope", "mcs-stellard.Sessions", "mcs-stellard.Server"];
 
 module.exports = function(mod) {
   mod.controller("ReceiveWidgetController", ReceiveWidgetController);

@@ -2,6 +2,7 @@ import {SessionAlreadyDefinedError} from "../errors";
 import {SessionNotFoundError} from "../errors";
 import {Session} from "../lib/session";
 import * as _ from 'lodash';
+import {Account, NotFoundError} from 'js-stellar-lib';
 
 const DEFAULT = 'default';
 
@@ -26,16 +27,27 @@ class Sessions {
   }
 
   create(name, params={}) {
-    if(this.sessions[name]) {
+    if (this.sessions[name]) {
       throw new SessionAlreadyDefinedError(`A session name "${name}" has already been created`);
     }
 
-    let session = new Session(params);
-    this.sessions[name] = session;
-    return this.Server.loadAccount(params.address)
+    this.sessions[name] = new Session(params);
+    this._updateSessionCookie();
+    return this.loadAccount(name);
+  }
+
+  loadDefaultAccount() {
+    return loadAccount(DEFAULT);
+  }
+
+  loadAccount(name) {
+    let address = this.sessions[name].getAddress();
+    return this.Server.loadAccount(address)
       .then(account => {
-        session.setAccount(account);
-        this._updateSessionCookie();
+        this.sessions[name].setAccount(account);
+      })
+      .catch(NotFoundError, e => {
+        this.sessions[name].setAccount(new Account(address));
       });
   }
 

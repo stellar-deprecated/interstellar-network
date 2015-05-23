@@ -1,7 +1,7 @@
 require('../styles/send-widget.scss');
 
 import {Intent} from 'mcs-core';
-import {Account, Currency, Operation, TransactionBuilder} from 'js-stellar-lib';
+import {Account, Currency, Keypair, Operation, TransactionBuilder} from 'js-stellar-lib';
 import * as moduleDatastore from "../util/module-datastore.es6";
 
 class SendWidgetController {
@@ -12,19 +12,35 @@ class SendWidgetController {
     }
 
     this.Server = Server;
+    this.Sessions = Sessions;
     this.session = Sessions.default;
     this.destinationAddress = moduleDatastore.get('destinationAddress');
   }
 
   send() {
-    let currency = Currency.native();
+    if (!this.session.getAccount()) {
+      this.Sessions.loadDefaultAccount()
+        .then(() => {
+          if (!this.session.getAccount()) {
+            alert('Account not funded.');
+            return;
+          }
+          this._send();
+        });
+    } else {
+      this._send();
+    }
+  }
 
-    var transaction = new TransactionBuilder(this.session.getAccount())
+  _send() {
+    let currency = Currency.native();
+    let transaction = new TransactionBuilder(this.session.getAccount())
       .addOperation(Operation.payment({
         destination: this.destinationAddress,
         currency: currency,
         amount: this.amount
       }))
+      .addSigner(Keypair.fromSeed(this.session.getSecret()))
       .build();
 
     this.Server.submitTransaction(transaction)

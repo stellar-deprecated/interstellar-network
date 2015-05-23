@@ -1,24 +1,13 @@
 <div ng-controller="mcs-stellard.BalanceWidgetController as widget">
   <ul>
-    <li class="mcs-stellard-balance-balanceEntry">
-      <span class="mcs-stellard-balance-balanceEntry__amount">{{widget.balance.xlm}}0</span>
+    <li class="mcs-stellard-balance-balanceEntry" ng-repeat="balance in widget.balances">
+      <span class="mcs-stellard-balance-balanceEntry__amount">{{balance.balance}}</span>
       <span class="mcs-stellard-balance-balanceEntry__currency">
-        <span class="mcs-stellard-balance-balanceEntry__currency__code">XLM</span>
-        (<span class="mcs-stellard-balance-balanceEntry__currency__issuer">stellar network</span>)
-      </span>
-    </li>
-    <li class="mcs-stellard-balance-balanceEntry">
-      <span class="mcs-stellard-balance-balanceEntry__amount">{{widget.balance.usd}}0</span>
-      <span class="mcs-stellard-balance-balanceEntry__currency">
-        <span class="mcs-stellard-balance-balanceEntry__currency__code">USD</span>
-        (<span class="mcs-stellard-balance-balanceEntry__currency__issuer">bankof.iris.li</span>)
-      </span>
-    </li>
-    <li class="mcs-stellard-balance-balanceEntry">
-      <span class="mcs-stellard-balance-balanceEntry__amount">{{widget.balance.eur}}0</span>
-      <span class="mcs-stellard-balance-balanceEntry__currency">
-        <span class="mcs-stellard-balance-balanceEntry__currency__code">EUR</span>
-        (<span class="mcs-stellard-balance-balanceEntry__currency__issuer">rabelais.risa</span>)
+        <span class="mcs-stellard-balance-balanceEntry__currency__code">
+          <span ng-if="balance.currency_type === 'native'">XLM</span>
+          <span ng-if="balance.currency_type !== 'native'">{{balance.currency_code}}</span>
+          <!--(<span class="mcs-stellard-balance-balanceEntry__currency__issuer">stellar network</span>)-->
+        </span>
       </span>
     </li>
   </ul>
