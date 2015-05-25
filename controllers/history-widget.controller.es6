@@ -1,5 +1,5 @@
 import {Account, Server} from 'js-stellar-lib';
-
+import {find} from 'lodash';
 require('../styles/history-widget.scss');
 
 export class HistoryWidgetController {
@@ -9,18 +9,36 @@ export class HistoryWidgetController {
       return;
     }
 
+    this.$scope = $scope;
     let session = Sessions.default;
     let address = session.getAddress();
 
     Server.accounts(address, "transactions")
       .then(response => {
-        //response.records[0].account().then(account => console.log(account));
         this.transactions = response.records;
-        $scope.$apply();
+        $scope.$apply()
+      })
+      .then(() => {
+        Server.accounts(address, "transactions", {
+          streaming: {
+            onmessage: transaction => {
+              this.onTransaction.call(this, transaction);
+            }
+          }
+        });
       })
       .catch(error => {
         console.error(error);
-      });
+      })
+      .finally(() => $scope.$apply());
+  }
+
+  onTransaction(transaction) {
+    if (find(this.transactions, t => t.id === transaction.id)) {
+      return;
+    }
+    this.transactions.unshift(transaction);
+    this.$scope.$apply();
   }
 }
 

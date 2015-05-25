@@ -1,62 +1,61 @@
-# `stellard` Module
+`mcs-network`
+=============
 
-The `stellard` module provides the lower level mechanisms to communicate with the stellar network.
+The `mcs-network` is part of the Modular Client System.
 
-This module is intended to be a cover over `stellar-lib`, integrating well with an modular client environment.
+> Quick start to developing in the MCS eco-system:
+>
+> * Install [`mcs-workspace`](https://github.com/stellar/mcs-workspace).
+> * Read the technical overview of the system.
+> * Contribute to our open-source modules or develop your own.
 
-This is meant primarily for backend code; `services` and `lib` scripts.
+The `mcs-network` module provides communication layer between MCS application and Stellar network.
 
-## Notable Services
+## Module contents
 
-The two major services provided by this module are [stellard.Network](services/network.service.es6) and [stellard.Sessions](services/sessions.service.ed6).
+#### Classes
+None
 
-### stellard.Network
+#### Services
+* [`mcs-network.Server`](#mcs-networkserver-service)
 
-The Network service manages low level connections (i.e. stellar-lib Remote objects) and wraps them in a Promise-based interface.  Additionally, this service will broadcast events on the root scope that other components can use to get notifications regarding network state.
+#### Widgets
+* [`<mcs-network-pre-send>`](#mcs-network-pre-send-widget)
+* [`<mcs-network-send>`](#mcs-network-send-widget)
+* [`<mcs-network-receive>`](#mcs-network-receive-widget)
+* [`<mcs-network-balance>`](#mcs-network-balance-widget)
+* [`<mcs-network-history>`](#mcs-network-history-widget)
 
+## `mcs-network.Server` service
 
-#### Example Usage
+`mcs-network.Server` is a js-stellar-lib [Server](http://stellar.github.io/js-stellar-lib/docs/Server.html) object created using application configuration. For more information please read js-stellar-lib documentation.
 
-```javascript
+## `<mcs-network-pre-send>` widget
 
-//Load someone's balance
+TODO - screenshot
 
-let network = $get('stellard.Network');
-// connect to the live stellar network
-network.get("live")
-  // wait until we are connected
-  .ensureConnected()
-  // issue a request
-  .then(nc => nc.sendRequest("account_info", {account: "gM4Fpv2QuHY4knJsQyYGKEHFGw3eMBwc1U"}))
-  // process results
-  .then(result => {
-    console.log(result.account_data.Balance);
-  });
+This widget displays send form.
 
-```
+## `<mcs-network-send>` widget
 
-### stellard.Sessions
+TODO - screenshot
 
-The Network service has no concept of a user.  NetworkConnection objects do not have an associated address or secret.  The Sessions service is where we introduce addresses and secrets.
+This widget displays send form.
 
-A session object (obtained through either `Sessions.get` or `Sessions.default`) present a similar interface to a `NetworkConnection` object.  The difference is that for helper methods, it will inject the sessions address/secret automatically on the higher level operations.
+## `<mcs-network-receive>` widget
 
-In addition, a session object has a `withSecret` method that allows you to upgrade to a new session that can, for example, sign requests as needed.
+TODO - screenshot
 
-#### Example Usage
+This widget displays user's address.
 
-```javascript
+## `<mcs-network-balance>` widget
 
-// watch an account on both live and testnet
-let sessions = $get('stellard.Sessions');
-let live     = sessions.create("account_live", { address: "gM4Fpv2QuHY4knJsQyYGKEHFGw3eMBwc1U", connection: 'live' });
-let test     = sessions.create("account_test", { address: "gM4Fpv2QuHY4knJsQyYGKEHFGw3eMBwc1U", connection: 'test' });
+TODO - screenshot
 
-live.listenForPayments();
-test.listenForPayments();
+This widget displays list of balances.
 
-```
+## `<mcs-network-history>` widget
 
-### TODO
+TODO - screenshot
 
-- [ ] Encrypt wallet secret with user password before saving it in cookie.
+This widget displays list of transactions.
