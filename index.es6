@@ -11,7 +11,6 @@ mod.controllers = require.context("./controllers", true);
 mod.directives  = require.context("./directives", true);
 mod.services    = require.context("./services", true);
 mod.templates   = require.context("raw!./templates", true);
-mod.setupBlocks = require.context("./setup-blocks", true);
 
 let registerBroadcastReceivers = (IntentBroadcast, Sessions) => {
   IntentBroadcast.registerReceiver(Intent.TYPES.SEND_TRANSACTION, intent => {
@@ -24,6 +23,19 @@ let registerBroadcastReceivers = (IntentBroadcast, Sessions) => {
 };
 registerBroadcastReceivers.$inject = ["mcs-core.IntentBroadcast", "mcs-stellard.Sessions"];
 mod.run(registerBroadcastReceivers);
+
+
+let addConfig = ConfigProvider => {
+  ConfigProvider.addModuleConfig(mod.name, {
+    horizon: {
+      secure: true,
+      hostname: "horizon-testnet.stellar.org",
+      port: 443
+    }
+  });
+};
+addConfig.$inject = ['mcs-core.ConfigProvider'];
+mod.config(addConfig);
 
 mod.define();
 

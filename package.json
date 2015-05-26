@@ -1,7 +1,8 @@
 {
   "name": "mcs-stellard",
   "version": "0.0.1",
-  "description": "The mcs-stellard modules provides the communication layer with stellard and session containers.",
+  "private": true,
+  "description": "The mcs-stellard module provides communication layer between MCS application and Stellar network.",
   "keywords": [
     "stellar",
     "mcs"
