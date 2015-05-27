@@ -1,10 +1,11 @@
 import {Module, Intent} from "mcs-core";
-import {mod as mcsStellarApi} from "mcs-stellar-api";
-import * as moduleDatastore from "./util/module-datastore.es6";
+import mcsStellarApi from "mcs-stellar-api";
+import moduleDatastore from "./util/module-datastore.es6";
 
-export const mod = new Module('mcs-stellard');
+const mod = new Module('mcs-stellard');
+export default mod;
 
-mod.use(mcsStellarApi.name);
+mod.use(mcsStellarApi);
 mod.use(require('angular-cookies'));
 
 mod.controllers = require.context("./controllers", true);
@@ -23,7 +24,6 @@ let registerBroadcastReceivers = (IntentBroadcast, Sessions) => {
 };
 registerBroadcastReceivers.$inject = ["mcs-core.IntentBroadcast", "mcs-stellard.Sessions"];
 mod.run(registerBroadcastReceivers);
-
 
 let addConfig = ConfigProvider => {
   ConfigProvider.addModuleConfig(mod.name, {

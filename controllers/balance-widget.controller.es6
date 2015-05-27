@@ -1,6 +1,8 @@
 require('../styles/balance-widget.scss');
+import {Inject} from 'mcs-core';
 import {sortBy} from 'lodash';
 
+@Inject("$scope", "mcs-stellard.Sessions", "mcs-stellard.Server")
 export class BalanceWidgetController {
   constructor($scope, Sessions, Server) {
     if (!Sessions.hasDefault()) {
@@ -25,8 +27,6 @@ export class BalanceWidgetController {
       });
   }
 }
-
-BalanceWidgetController.$inject = ["$scope", "mcs-stellard.Sessions", "mcs-stellard.Server"];
 
 module.exports = function(mod) {
   mod.controller("BalanceWidgetController", BalanceWidgetController);

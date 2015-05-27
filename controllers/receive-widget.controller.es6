@@ -1,6 +1,8 @@
 require('../styles/receive-widget.scss');
+import {Inject} from 'mcs-core';
 
-export class ReceiveWidgetController {
+@Inject("$scope", "mcs-stellard.Sessions", "mcs-stellard.Server")
+class ReceiveWidgetController {
   constructor($scope, Sessions, Server) {
     if (!Sessions.hasDefault()) {
       console.error('Active session is required by this widget.');
@@ -22,8 +24,6 @@ export class ReceiveWidgetController {
       })
   }
 }
-
-ReceiveWidgetController.$inject = ["$scope", "mcs-stellard.Sessions", "mcs-stellard.Server"];
 
 module.exports = function(mod) {
   mod.controller("ReceiveWidgetController", ReceiveWidgetController);

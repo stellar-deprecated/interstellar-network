@@ -1,11 +1,13 @@
 import {SessionAlreadyDefinedError} from "../errors";
 import {SessionNotFoundError} from "../errors";
+import {Inject} from 'mcs-core';
 import {Session} from "../lib/session";
 import * as _ from 'lodash';
 import {Account, NotFoundError} from 'js-stellar-lib';
 
 const DEFAULT = 'default';
 
+@Inject("$cookieStore", "mcs-stellard.Server")
 class Sessions {
   constructor($cookieStore, Server) {
     this.$cookieStore = $cookieStore;
@@ -87,8 +89,6 @@ class Sessions {
     this.$cookieStore.put('sessions', permanentSessions);
   }
 }
-
-Sessions.$inject = ["$cookieStore", "mcs-stellard.Server"];
 
 module.exports = function(mod) {
   mod.service("Sessions", Sessions);

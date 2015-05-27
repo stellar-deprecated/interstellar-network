@@ -1,7 +1,8 @@
 require('../styles/pre-send-widget.scss');
 
-import {Intent} from "mcs-core";
+import {Inject, Intent} from "mcs-core";
 
+@Inject("mcs-core.IntentBroadcast")
 class PreSendWidgetController {
   constructor(IntentBroadcast) {
     this.IntentBroadcast = IntentBroadcast;
@@ -16,8 +17,6 @@ class PreSendWidgetController {
     );
   }
 }
-
-PreSendWidgetController.$inject = ["mcs-core.IntentBroadcast"];
 
 module.exports = mod => {
   mod.controller("PreSendWidgetController", PreSendWidgetController);

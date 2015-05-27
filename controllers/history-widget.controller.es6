@@ -1,7 +1,9 @@
 import {Account, Server} from 'js-stellar-lib';
+import {Inject} from 'mcs-core';
 import {find} from 'lodash';
 require('../styles/history-widget.scss');
 
+@Inject("$scope", "mcs-stellard.Sessions", "mcs-stellard.Server")
 export class HistoryWidgetController {
   constructor($scope, Sessions, Server) {
     if (!Sessions.hasDefault()) {
@@ -41,8 +43,6 @@ export class HistoryWidgetController {
     this.$scope.$apply();
   }
 }
-
-HistoryWidgetController.$inject = ["$scope", "mcs-stellard.Sessions", "mcs-stellard.Server"];
 
 module.exports = function(mod) {
   mod.controller("HistoryWidgetController", HistoryWidgetController);

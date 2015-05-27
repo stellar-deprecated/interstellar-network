@@ -1,9 +1,10 @@
 require('../styles/send-widget.scss');
 
-import {Intent} from 'mcs-core';
+import {Inject, Intent} from 'mcs-core';
 import {Account, Currency, Keypair, Operation, TransactionBuilder} from 'js-stellar-lib';
-import * as moduleDatastore from "../util/module-datastore.es6";
+import moduleDatastore from "../util/module-datastore.es6";
 
+@Inject("mcs-stellard.Sessions", "mcs-stellard.Server")
 class SendWidgetController {
   constructor(Sessions, Server) {
     if (!Sessions.hasDefault()) {
@@ -53,8 +54,6 @@ class SendWidgetController {
       });
   }
 }
-
-SendWidgetController.$inject = ["mcs-stellard.Sessions", "mcs-stellard.Server"];
 
 module.exports = function(mod) {
   mod.controller("SendWidgetController", SendWidgetController);

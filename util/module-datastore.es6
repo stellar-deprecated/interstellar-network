@@ -12,5 +12,4 @@ class ModuleDatastore {
   }
 }
 
-let datastore = new ModuleDatastore();
-module.exports = datastore;
+export default new ModuleDatastore();
