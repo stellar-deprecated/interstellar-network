@@ -1,5 +1,10 @@
 <div ng-controller="mcs-stellard.SendWidgetController as widget">
   <form class="mcs-stellard-send-sendForm">
+    <ul ng-if="widget.errors">
+      <li ng-repeat="error in widget.errors">
+        {{error}}
+      </li>
+    </ul>
     <div class="k-inputGroup">
       <input class="k-inputGroup__item mcs-stellard-send-sendForm__sendTo" ng-model="widget.destinationAddress" placeholder="Send to" type="text">
     </div>

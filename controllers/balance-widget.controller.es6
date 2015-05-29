@@ -15,10 +15,11 @@ export class BalanceWidgetController {
     Server.accounts(address)
       .then(account => {
         if (!account) {
-          this.balances = {balance: 0, currency_type: 'native'};
+          this.balances = {balance: 0, currency_code: 'STR'};
         } else {
           this.balances = sortBy(account.balances, balance => balance.currency_type !== 'native');
           this.balances[0].balance = Math.floor(this.balances[0].balance/1000000);
+          this.balances[0].currency_code = 'STR';
         }
         $scope.$apply();
       })

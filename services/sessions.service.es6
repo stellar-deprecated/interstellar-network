@@ -2,7 +2,7 @@ import {SessionAlreadyDefinedError} from "../errors";
 import {SessionNotFoundError} from "../errors";
 import {Inject} from 'mcs-core';
 import {Session} from "../lib/session";
-import * as _ from 'lodash';
+import _ from 'lodash';
 import {Account, NotFoundError} from 'js-stellar-lib';
 
 const DEFAULT = 'default';

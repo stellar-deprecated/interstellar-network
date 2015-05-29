@@ -16,14 +16,22 @@ class SendWidgetController {
     this.Sessions = Sessions;
     this.session = Sessions.default;
     this.destinationAddress = moduleDatastore.get('destinationAddress');
+    this.errors = [];
   }
 
   send() {
+    this.errors = [];
+
+    if (!Account.isValidAddress(this.destinationAddress)) {
+      this.errors.push('Destination address is not valid.');
+      return;
+    }
+
     if (!this.session.getAccount()) {
       this.Sessions.loadDefaultAccount()
         .then(() => {
           if (!this.session.getAccount()) {
-            alert('Account not funded.');
+            this.errors.push('Your account is not funded.');
             return;
           }
           this._send();
@@ -35,18 +43,18 @@ class SendWidgetController {
 
   _send() {
     let currency = Currency.native();
+    let amount = this.amount * 1000000;
     let transaction = new TransactionBuilder(this.session.getAccount())
       .addOperation(Operation.payment({
         destination: this.destinationAddress,
         currency: currency,
-        amount: this.amount
+        amount: amount
       }))
       .addSigner(Keypair.fromSeed(this.session.getSecret()))
       .build();
 
     this.Server.submitTransaction(transaction)
       .then(transactionResult => {
-        console.log(transactionResult);
         alert('Transaction sent!');
       })
       .catch(function (err) {

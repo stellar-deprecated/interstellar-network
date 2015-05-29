@@ -11,6 +11,20 @@ The `mcs-network` is part of the Modular Client System.
 
 The `mcs-network` module provides communication layer between MCS application and Stellar network.
 
+## Default configuration
+
+```json
+{
+  "horizon": {
+    "secure": true,
+    "hostname": "horizon-testnet.stellar.org",
+    "port": 443
+  }
+}
+```
+
+Read more about [modules configuration](https://github.com/stellar/mcs-core#mcs-coreconfig-service).
+
 ## Module contents
 
 #### Classes
