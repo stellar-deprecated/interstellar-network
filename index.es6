@@ -1,5 +1,4 @@
 import {Module, Intent} from "interstellar-core";
-import interstellarSessions from "interstellar-sessions";
 
 const mod = new Module('interstellar-network');
 export default mod;
@@ -22,5 +21,3 @@ addConfig.$inject = ['interstellar-core.ConfigProvider'];
 mod.config(addConfig);
 
 mod.define();
-
-export * from "./errors";
