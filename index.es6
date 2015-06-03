@@ -3,7 +3,6 @@ import {Module, Intent} from "interstellar-core";
 const mod = new Module('interstellar-network');
 export default mod;
 
-mod.use(require('angular-cookies'));
 mod.use(interstellarSessions);
 
 mod.services = require.context("./services", true);
