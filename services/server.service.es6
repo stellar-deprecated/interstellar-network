@@ -1,10 +1,10 @@
-import {Inject} from 'mcs-core'
+import {Inject} from 'interstellar-core'
 import {Server as LibServer} from 'js-stellar-lib';
 
-@Inject('mcs-core.Config')
+@Inject('interstellar-core.Config')
 class Server {
   constructor(Config) {
-    return new LibServer(Config.get('modules.mcs-stellard.horizon'));
+    return new LibServer(Config.get('modules.interstellar-network.horizon'));
   }
 }
 

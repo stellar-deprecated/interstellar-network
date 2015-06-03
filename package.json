@@ -1,11 +1,11 @@
 {
-  "name": "mcs-stellard",
+  "name": "interstellar-network",
   "version": "0.0.1",
   "private": true,
-  "description": "The mcs-stellard module provides communication layer between MCS application and Stellar network.",
+  "description": "The interstellar-network module provides communication layer between Interstellar application and Stellar network.",
   "keywords": [
     "stellar",
-    "mcs"
+    "interstellar"
   ],
   "scripts": {
     "test": "gulp test"
@@ -14,13 +14,13 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "http://github.com/stellar/mcs-stellard.git"
+    "url": "http://github.com/stellar/interstellar-network.git"
   },
   "dependencies": {
     "angular-cookies": "^1.3.15",
     "js-stellar-lib": "git+https://github.com/stellar/js-stellar-lib.git#master",
     "lodash": "^2.4.1",
-    "mcs-core": "git+https://github.com/stellar/mcs-core.git#master",
-    "mcs-stellar-api": "git+https://github.com/stellar/mcs-stellar-api.git#master"
+    "interstellar-core": "^0.0.1",
+    "interstellar-sessions": "^0.0.1"
   }
 }

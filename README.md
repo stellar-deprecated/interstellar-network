@@ -1,15 +1,16 @@
-`mcs-network`
+`interstellar-network`
 =============
 
-The `mcs-network` is part of the Modular Client System.
+The `interstellar-network` is part of the Interstellar Module System.
 
-> Quick start to developing in the MCS eco-system:
+> Quick start to developing in the Interstellar eco-system:
 >
-> * Install [`mcs-workspace`](https://github.com/stellar/mcs-workspace).
+> * Read [`Getting started`](https://github.com/stellar/interstellar/tree/master/docs) doc.
+> * Install [`interstellar-workspace`](https://github.com/stellar/interstellar-workspace).
 > * Read the technical overview of the system.
 > * Contribute to our open-source modules or develop your own.
 
-The `mcs-network` module provides communication layer between MCS application and Stellar network.
+The `interstellar-network` module provides communication layer between Interstellar application and Stellar network.
 
 ## Default configuration
 
@@ -23,7 +24,7 @@ The `mcs-network` module provides communication layer between MCS application an
 }
 ```
 
-Read more about [modules configuration](https://github.com/stellar/mcs-core#mcs-coreconfig-service).
+Read more about [modules configuration](https://github.com/stellar/interstellar-core#interstellar-coreconfig-service).
 
 ## Module contents
 
@@ -31,44 +32,44 @@ Read more about [modules configuration](https://github.com/stellar/mcs-core#mcs-
 None
 
 #### Services
-* [`mcs-network.Server`](#mcs-networkserver-service)
+* [`interstellar-network.Server`](#interstellar-networkserver-service)
 
 #### Widgets
-* [`<mcs-network-pre-send>`](#mcs-network-pre-send-widget)
-* [`<mcs-network-send>`](#mcs-network-send-widget)
-* [`<mcs-network-receive>`](#mcs-network-receive-widget)
-* [`<mcs-network-balance>`](#mcs-network-balance-widget)
-* [`<mcs-network-history>`](#mcs-network-history-widget)
+* [`<interstellar-network-pre-send>`](#interstellar-network-pre-send-widget)
+* [`<interstellar-network-send>`](#interstellar-network-send-widget)
+* [`<interstellar-network-receive>`](#interstellar-network-receive-widget)
+* [`<interstellar-network-balance>`](#interstellar-network-balance-widget)
+* [`<interstellar-network-history>`](#interstellar-network-history-widget)
 
-## `mcs-network.Server` service
+## `interstellar-network.Server` service
 
-`mcs-network.Server` is a js-stellar-lib [Server](http://stellar.github.io/js-stellar-lib/docs/Server.html) object created using application configuration. For more information please read js-stellar-lib documentation.
+`interstellar-network.Server` is a js-stellar-lib [Server](http://stellar.github.io/js-stellar-lib/docs/Server.html) object created using application configuration. For more information please read js-stellar-lib documentation.
 
-## `<mcs-network-pre-send>` widget
-
-TODO - screenshot
-
-This widget displays send form.
-
-## `<mcs-network-send>` widget
+## `<interstellar-network-pre-send>` widget
 
 TODO - screenshot
 
 This widget displays send form.
 
-## `<mcs-network-receive>` widget
+## `<interstellar-network-send>` widget
+
+TODO - screenshot
+
+This widget displays send form.
+
+## `<interstellar-network-receive>` widget
 
 TODO - screenshot
 
 This widget displays user's address.
 
-## `<mcs-network-balance>` widget
+## `<interstellar-network-balance>` widget
 
 TODO - screenshot
 
 This widget displays list of balances.
 
-## `<mcs-network-history>` widget
+## `<interstellar-network-history>` widget
 
 TODO - screenshot
 
