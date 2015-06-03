@@ -35,42 +35,8 @@ None
 * [`interstellar-network.Server`](#interstellar-networkserver-service)
 
 #### Widgets
-* [`<interstellar-network-pre-send>`](#interstellar-network-pre-send-widget)
-* [`<interstellar-network-send>`](#interstellar-network-send-widget)
-* [`<interstellar-network-receive>`](#interstellar-network-receive-widget)
-* [`<interstellar-network-balance>`](#interstellar-network-balance-widget)
-* [`<interstellar-network-history>`](#interstellar-network-history-widget)
+None
 
 ## `interstellar-network.Server` service
 
 `interstellar-network.Server` is a js-stellar-lib [Server](http://stellar.github.io/js-stellar-lib/docs/Server.html) object created using application configuration. For more information please read js-stellar-lib documentation.
-
-## `<interstellar-network-pre-send>` widget
-
-TODO - screenshot
-
-This widget displays send form.
-
-## `<interstellar-network-send>` widget
-
-TODO - screenshot
-
-This widget displays send form.
-
-## `<interstellar-network-receive>` widget
-
-TODO - screenshot
-
-This widget displays user's address.
-
-## `<interstellar-network-balance>` widget
-
-TODO - screenshot
-
-This widget displays list of balances.
-
-## `<interstellar-network-history>` widget
-
-TODO - screenshot
-
-This widget displays list of transactions.
