@@ -4,8 +4,6 @@ import interstellarSessions from "interstellar-sessions";
 const mod = new Module('interstellar-network');
 export default mod;
 
-mod.use(interstellarSessions);
-
 mod.services = require.context("./services", true);
 
 let addConfig = ConfigProvider => {
