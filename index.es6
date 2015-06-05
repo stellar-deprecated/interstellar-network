@@ -1,4 +1,5 @@
 import {Module, Intent} from "interstellar-core";
+import interstellarSessions from "interstellar-sessions";
 
 const mod = new Module('interstellar-network');
 export default mod;
