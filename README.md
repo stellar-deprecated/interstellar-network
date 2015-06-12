@@ -31,10 +31,61 @@ Read more about [modules configuration](https://github.com/stellar/interstellar-
 None
 
 #### Services
+* [`interstellar-network.AccountObservable`](#interstellar-networkaccountobservable-service)
 * [`interstellar-network.Server`](#interstellar-networkserver-service)
 
 #### Widgets
 None
+
+## `interstellar-network.AccountObservable` service
+
+`interstellar-network.AccountObservable` provides a shared space for accounts state and events. Let's say there are 2 widgets displaying a current balance. Without `interstellar-network.AccountObservable` each of them would have to make it's own requests to [horizon](https://github.com/stellar/go-horizon) server in order to get balance data. This service saves a recently fetched account information in the internal cache so every widget can get the latest information about the account without having to make requests to [horizon](https://github.com/stellar/go-horizon).
+
+#### `getBalances(address)` method
+
+Returns the cached balance data for `address`. If there is no cache data will be requested from [horizon](https://github.com/stellar/go-horizon) and then returned.
+
+```js
+AccountObservable.getBalances(address)
+  .then(balances => {
+    console.log(balances);
+  });
+```
+
+Returns a `Promise`.
+
+#### `getTransactions(address)` method
+
+Returns the transactions list for `address`. This data will not be cached so it will be requested from [horizon](https://github.com/stellar/go-horizon) every time it's used.
+
+```js
+AccountObservable.getTransactions(address)
+  .then(transactions => {
+    console.log(transactions);
+  });
+```
+
+Returns a `Promise`.
+
+#### `registerBalanceChangeListener(address, callback)` method
+
+Registers listener for balance changes. `callback` function will be called every time there is a change in one or more user balances.
+
+```js
+AccountObservable.registerBalanceChangeListener(address, balances => {
+  console.log(balances);
+});
+```
+
+#### `registerTransactionListener(address, callback)` method
+
+Registers listener for new transactions. `callback` function will be called every time there is a new transaction in `address`.
+
+```js
+AccountObservable.registerTransactionListener(address, transaction => {
+  console.log(transaction);
+});
+```
 
 ## `interstellar-network.Server` service
 
