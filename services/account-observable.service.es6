@@ -1,9 +1,10 @@
-import {Inject} from 'interstellar-core';
+import {Inject, Service} from 'interstellar-core';
 import {contains, cloneDeep} from 'lodash';
 import Promise from 'bluebird';
 
+@Service('AccountObservable')
 @Inject('interstellar-network.Server')
-class AccountObservable {
+export default class AccountObservable {
   constructor(Server) {
     this.Server = Server;
     this.streamingAddresses = [];
@@ -86,7 +87,3 @@ class AccountObservable {
     }
   }
 }
-
-module.exports = function(mod) {
-  mod.service("AccountObservable", AccountObservable);
-};
