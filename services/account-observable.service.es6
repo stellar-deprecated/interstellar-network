@@ -8,30 +8,29 @@ export default class AccountObservable {
   constructor(Server) {
     this.Server = Server;
     this.streamingAddresses = [];
-    this.transactionListeners = {};
+    this.paymentListeners = {};
     this.balanceChangeListeners = {};
     this.balances = {};
-    this.transactions = {};
   }
 
   _setupStreaming(address) {
     if (!contains(this.streamingAddresses, address)) {
       this.streamingAddresses.push(address);
-      this.transactionListeners[address] = [];
+      this.paymentListeners[address] = [];
       this.balanceChangeListeners[address] = [];
 
-      this.Server.accounts(address, "transactions", {
+      this.Server.accounts(address, "payments", {
         streaming: {
-          onmessage: transaction => this._onTransaction.call(this, address, transaction)
+          onmessage: payment => this._onPayment.call(this, address, payment)
         }
       });
     }
   }
 
-  getTransactions(address) {
-    return this.Server.accounts(address, "transactions")
-      .then(transactions => {
-        return cloneDeep(transactions);
+  getPayments(address) {
+    return this.Server.accounts(address, "payments", {order: 'desc'})
+      .then(payments => {
+        return cloneDeep(payments);
       });
   }
 
@@ -47,9 +46,9 @@ export default class AccountObservable {
     }
   }
 
-  registerTransactionListener(address, listener) {
+  registerPaymentListener(address, listener) {
     this._setupStreaming(address);
-    this.transactionListeners[address].push(listener);
+    this.paymentListeners[address].push(listener);
   }
 
   registerBalanceChangeListener(address, listener) {
@@ -69,10 +68,10 @@ export default class AccountObservable {
       });
   }
 
-  _onTransaction(address, transaction) {
-    if (this.transactionListeners[address]) {
-      for (var listener of this.transactionListeners[address]) {
-        listener(cloneDeep(transaction));
+  _onPayment(address, payment) {
+    if (this.paymentListeners[address]) {
+      for (var listener of this.paymentListeners[address]) {
+        listener(cloneDeep(payment));
       }
     }
 

@@ -17,7 +17,7 @@
     "url": "http://github.com/stellar/interstellar-network.git"
   },
   "dependencies": {
-    "js-stellar-lib": "^0.1.4",
+    "js-stellar-lib": "^0.1.8",
     "lodash": "^2.4.1",
     "interstellar-core": "^0.0.3",
     "bluebird": "^2.9.25"
