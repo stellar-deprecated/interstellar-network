@@ -1,6 +1,6 @@
 {
   "name": "interstellar-network",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "The interstellar-network module provides communication layer between Interstellar application and Stellar network.",
   "keywords": [
     "stellar",
