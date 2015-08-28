@@ -89,7 +89,7 @@ AccountObservable.registerTransactionListener(address, transaction => {
 
 ## `interstellar-network.Server` service
 
-`interstellar-network.Server` is a js-stellar-lib [Server](http://stellar.github.io/js-stellar-lib/docs/Server.html) object created using application configuration. For more information please read js-stellar-lib documentation.
+`interstellar-network.Server` is a stellar-sdk [Server](http://stellar.github.io/stellar-sdk/docs/Server.html) object created using application configuration. For more information please read stellar-sdk documentation.
 
 ## Publishing to npm
 ```

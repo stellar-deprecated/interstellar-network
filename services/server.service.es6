@@ -1,5 +1,5 @@
 import {Inject, Service} from 'interstellar-core'
-import {Server as LibServer} from 'js-stellar-lib';
+import {Server as LibServer} from 'stellar-sdk';
 
 @Service('Server')
 @Inject('interstellar-core.Config')
