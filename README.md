@@ -15,6 +15,7 @@ It provides a communication layer between Interstellar applications and the Stel
 
 ```json
 {
+  networkPassphrase: "Public Global Stellar Network ; September 2015",
   "horizon": {
     "secure": true,
     "hostname": "horizon-testnet.stellar.org",
@@ -22,6 +23,10 @@ It provides a communication layer between Interstellar applications and the Stel
   }
 }
 ```
+
+`interstellar-network` module exports two `const`s:
+* `NETWORK_PUBLIC` - containing Public Global Stellar Network passphrase,
+* `NETWORK_TESTNET` - containing Test SDF Network passphrase
 
 Read more about [modules configuration](https://github.com/stellar/interstellar-core#interstellar-coreconfig-service).
 
