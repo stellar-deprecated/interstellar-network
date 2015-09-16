@@ -15,7 +15,7 @@ It provides a communication layer between Interstellar applications and the Stel
 
 ```json
 {
-  networkPassphrase: "Public Global Stellar Network ; September 2015",
+  "networkPassphrase": "Test SDF Network ; September 2015",
   "horizon": {
     "secure": true,
     "hostname": "horizon-testnet.stellar.org",
