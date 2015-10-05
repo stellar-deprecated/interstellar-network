@@ -19,16 +19,19 @@ export default class AccountObservable {
       this.paymentListeners[address] = [];
       this.balanceChangeListeners[address] = [];
 
-      this.Server.accounts(address, "payments", {
-        streaming: {
+      this.Server.payments()
+        .forAccount(address)
+        .stream({
           onmessage: payment => this._onPayment.call(this, address, payment)
-        }
-      });
+        });
     }
   }
 
   getPayments(address) {
-    return this.Server.accounts(address, "payments", {order: 'desc'})
+    return this.Server.payments()
+      .forAccount(address)
+      .order('desc')
+      .call()
       .then(payments => {
         return cloneDeep(payments);
       });
@@ -57,7 +60,9 @@ export default class AccountObservable {
   }
 
   _getBalances(address) {
-    return this.Server.accounts(address)
+    return this.Server.accounts()
+      .address(address)
+      .call()
       .then(account => Promise.resolve(account.balances))
       .catch(e => {
         if (e.name === 'NotFoundError') {
